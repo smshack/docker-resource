@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   redis:
@@ -8,6 +8,8 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    networks:
+      - service
 
   redis_exporter:
     image: oliver006/redis_exporter:latest
@@ -17,7 +19,11 @@ services:
       - "9121:9121"
     depends_on:
       - redis
+    networks:
+      - service
 
 volumes:
   redis_data:
 
+networks:
+  service:

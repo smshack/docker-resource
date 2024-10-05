@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mongo:
@@ -11,6 +11,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - service
 
   mongodb_exporter:
     image: bitnami/mongodb-exporter:latest
@@ -21,7 +23,11 @@ services:
       - "9216:9216"
     depends_on:
       - mongo
+    networks:
+      - service
 
 volumes:
   mongo_data:
 
+networks:
+  service:

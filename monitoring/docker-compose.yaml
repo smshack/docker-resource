@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   prometheus:
@@ -9,12 +9,7 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
-      - mongodb_default
-      - mysql_default
-      - postgres_default
-      - redis_default
-      - mssql_default
-      - monitoring_default  # Prometheus의 기본 네트워크
+      - service
 
   grafana:
     image: grafana/grafana:latest
@@ -28,7 +23,7 @@ services:
     depends_on:
       - prometheus
     networks:
-      - monitoring_default  # Prometheus와 같은 네트워크에 연결
+      - service
 
   node-exporter:
     image: prom/node-exporter:latest
@@ -36,7 +31,7 @@ services:
     ports:
       - "9100:9100"
     networks:
-      - monitoring_default
+      - service
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
@@ -50,22 +45,10 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
     networks:
-      - monitoring_default
-
-networks:
-  mongodb_default:
-    external: true
-  mysql_default:
-    external: true
-  postgres_default:
-    external: true
-  redis_default:
-    external: true
-  mssql_default:
-    external: true
-  monitoring_default:
-    external: true
+      - service
 
 volumes:
   grafana_data:
 
+networks:
+  service:

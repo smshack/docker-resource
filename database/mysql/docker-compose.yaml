@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mysql:
@@ -13,6 +13,8 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - service
 
   mysql_exporter:
     image: prom/mysqld-exporter:latest
@@ -23,7 +25,11 @@ services:
       - "9104:9104"
     depends_on:
       - mysql
+    networks:
+      - service
 
 volumes:
   mysql_data:
 
+networks:
+  service:

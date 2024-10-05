@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mssql:
@@ -11,6 +11,8 @@ services:
       - "1433:1433"
     volumes:
       - mssql_data:/var/opt/mssql
+    networks:
+      - service
 
   mssql_exporter:
     image: gocodify/mssql_exporter:latest
@@ -21,7 +23,11 @@ services:
       - "4000:4000"
     depends_on:
       - mssql
+    networks:
+      - service
 
 volumes:
   mssql_data:
 
+networks:
+  service:

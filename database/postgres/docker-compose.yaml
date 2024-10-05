@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   postgres:
@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - service
 
   postgres_exporter:
     image: wrouesnel/postgres_exporter:latest
@@ -22,7 +24,11 @@ services:
       - "9187:9187"
     depends_on:
       - postgres
+    networks:
+      - service
 
 volumes:
   postgres_data:
 
+networks:
+  service:
