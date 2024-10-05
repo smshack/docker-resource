@@ -4,23 +4,23 @@ global:
 scrape_configs:
   - job_name: "mongodb"
     static_configs:
-      - targets: ["host:9216"] # mongodb 컨테이너에 접근
+      - targets: ["172.17.0.1:9216"] # mongodb 컨테이너에 접근
 
   - job_name: "mysql"
     static_configs:
-      - targets: ["host:9104"] # mysql 컨테이너에 접근
+      - targets: ["172.17.0.1:9104"] # mysql 컨테이너에 접근
 
   - job_name: "postgresql"
     static_configs:
-      - targets: ["host:9187"] # postgres 컨테이너에 접근
+      - targets: ["172.17.0.1:9187"] # postgres 컨테이너에 접근
 
   - job_name: "redis"
     static_configs:
-      - targets: ["host:9121"] # redis 컨테이너에 접근
+      - targets: ["172.17.0.1:9121"] # redis 컨테이너에 접근
 
   - job_name: "mssql"
     static_configs:
-      - targets: ["host:4000"] # mssql 컨테이너에 접근
+      - targets: ["172.17.0.1:4000"] # mssql 컨테이너에 접근
 
   - job_name: "node_exporter" # 호스트 서버 리소스 모니터링 추가
     static_configs:
@@ -28,4 +28,4 @@ scrape_configs:
 
   - job_name: "cadvisor" # Docker 컨테이너 모니터링
     static_configs:
-      - targets: ["host:8080"]
+      - targets: ["172.17.0.1:8080"]
