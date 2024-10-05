@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - services
+
+volumes:
+  portainer_data:
+
+networks:
+  services:
+    external: true # 외부 네트워크 사용
