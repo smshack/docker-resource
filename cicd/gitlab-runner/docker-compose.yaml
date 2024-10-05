@@ -1,0 +1,13 @@
+version: "3"
+services:
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    restart: always
+    volumes:
+      - /srv/gitlab-runner/config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - CI_SERVER_URL=https://gitlab.example.com/
+      - REGISTRATION_TOKEN=your_registration_token
+      - RUNNER_EXECUTOR=docker
+      - DOCKER_IMAGE=alpine:latest
