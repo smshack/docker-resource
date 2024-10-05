@@ -6,9 +6,9 @@ scrape_configs:
     static_configs:
       - targets: ["172.17.0.1:9216"] # mongodb 컨테이너에 접근
 
-  - job_name: "mysql"
-    static_configs:
-      - targets: ["172.17.0.1:9104"] # mysql 컨테이너에 접근
+  # - job_name: "mysql"
+  #   static_configs:
+  #     - targets: ["172.17.0.1:9104"] # mysql 컨테이너에 접근
 
   - job_name: "postgresql"
     static_configs:
@@ -18,9 +18,9 @@ scrape_configs:
     static_configs:
       - targets: ["172.17.0.1:9121"] # redis 컨테이너에 접근
 
-  - job_name: "mssql"
-    static_configs:
-      - targets: ["172.17.0.1:4000"] # mssql 컨테이너에 접근
+  # - job_name: "mssql"
+  #   static_configs:
+  #     - targets: ["172.17.0.1:4000"] # mssql 컨테이너에 접근
 
   - job_name: "node_exporter" # 호스트 서버 리소스 모니터링 추가
     static_configs:
