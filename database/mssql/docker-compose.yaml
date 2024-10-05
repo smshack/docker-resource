@@ -14,21 +14,22 @@ services:
     networks:
       - services
 
-  # mssql_exporter:
-  #   image: gocodify/mssql_exporter:latest
-  #   container_name: mssql-exporter
-  #   environment:
-  #     DATA_SOURCE_NAME: "sqlserver://sa:password@mssql:1433?database=master"
-  #   ports:
-  #     - "4000:4000"
-  #   depends_on:
-  #     - mssql
-  #   networks:
-  #     - services
+  mssql_exporter:
+    image: gocodify/mssql_exporter:latest
+    container_name: mssql-exporter
+    platform: linux/arm64 # ARM64 플랫폼 에뮬레이션
+    environment:
+      DATA_SOURCE_NAME: "sqlserver://sa:password@mssql:1433?database=master"
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mssql
+    networks:
+      - services
 
 volumes:
   mssql_data:
 
 networks:
   services:
-    external: true # 외부 네트워크 사용
+    external: true
