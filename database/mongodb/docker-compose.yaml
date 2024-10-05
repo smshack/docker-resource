@@ -12,7 +12,7 @@ services:
     volumes:
       - mongo_data:/data/db
     networks:
-      - service
+      - services # 외부 네트워크 사용
 
   mongodb_exporter:
     image: bitnami/mongodb-exporter:latest
@@ -24,10 +24,11 @@ services:
     depends_on:
       - mongo
     networks:
-      - service
+      - services # 외부 네트워크 사용
 
 volumes:
   mongo_data:
 
 networks:
-  service:
+  services:
+    external: true # 외부 네트워크 사용

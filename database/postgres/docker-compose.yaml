@@ -13,7 +13,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - service
+      - services
 
   postgres_exporter:
     image: wrouesnel/postgres_exporter:latest
@@ -25,10 +25,11 @@ services:
     depends_on:
       - postgres
     networks:
-      - service
+      - services
 
 volumes:
   postgres_data:
 
 networks:
-  service:
+  services:
+    external: true # 외부 네트워크 사용

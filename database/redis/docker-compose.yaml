@@ -9,7 +9,7 @@ services:
     volumes:
       - redis_data:/data
     networks:
-      - service
+      - services
 
   redis_exporter:
     image: oliver006/redis_exporter:latest
@@ -20,10 +20,11 @@ services:
     depends_on:
       - redis
     networks:
-      - service
+      - services
 
 volumes:
   redis_data:
 
 networks:
-  service:
+  services:
+    external: true # 외부 네트워크 사용

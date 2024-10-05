@@ -14,7 +14,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
-      - service
+      - services
 
   mysql_exporter:
     image: prom/mysqld-exporter:latest
@@ -26,10 +26,12 @@ services:
     depends_on:
       - mysql
     networks:
-      - service
+      - services
 
 volumes:
   mysql_data:
 
 networks:
-  service:
+  services:
+    external: true # 외부 네트워크 사용
+
