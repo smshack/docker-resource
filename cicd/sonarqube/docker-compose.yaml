@@ -5,7 +5,7 @@ services:
     image: sonarqube:latest
     container_name: sonarqube
     ports:
-      - "9000:9000"
+      - "9001:9000"
     volumes:
       - sonarqube_conf:/opt/sonarqube/conf
       - sonarqube_data:/opt/sonarqube/data
