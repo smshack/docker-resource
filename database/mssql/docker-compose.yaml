@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "password"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+  mssql_exporter:
+    image: gocodify/mssql_exporter:latest
+    container_name: mssql-exporter
+    environment:
+      DATA_SOURCE_NAME: "sqlserver://sa:password@mssql:1433?database=master"
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mssql
+
+volumes:
+  mssql_data:
+

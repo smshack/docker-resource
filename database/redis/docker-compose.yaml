@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  redis_exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: redis-exporter
+    command: --redis.addr=redis://redis:6379
+    ports:
+      - "9121:9121"
+    depends_on:
+      - redis
+
+volumes:
+  redis_data:
+
