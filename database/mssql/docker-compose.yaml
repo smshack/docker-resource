@@ -21,7 +21,7 @@ services:
     environment:
       DATA_SOURCE_NAME: "sqlserver://sa:P@ssw0rd123!@mssql:1433?database=master"
     ports:
-      - "4000:4000"
+      - "4000:9090"
     depends_on:
       - mssql
     networks:
