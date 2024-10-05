@@ -6,7 +6,7 @@ services:
     container_name: mssql
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "password"
+      SA_PASSWORD: "P@ssw0rd123!"
     ports:
       - "1433:1433"
     volumes:
@@ -19,7 +19,7 @@ services:
     container_name: mssql-exporter
     platform: linux/arm64 # ARM64 플랫폼 에뮬레이션
     environment:
-      DATA_SOURCE_NAME: "sqlserver://sa:password@mssql:1433?database=master"
+      DATA_SOURCE_NAME: "sqlserver://sa:P@ssw0rd123!@mssql:1433?database=master"
     ports:
       - "4000:4000"
     depends_on:
