@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  blackduck:
+    image: blackducksoftware/blackduck-cfssl:latest
+    container_name: blackduck
+    ports:
+      - "443:443"
+    environment:
+      - PUBLIC_HUB_WEBSERVER_HOST=localhost
+      - PUBLIC_HUB_WEBSERVER_PORT=443
+      - HUB_WEBSERVER_PORT=443
+    volumes:
+      - blackduck-data:/opt/blackduck/hub/hub-data
+      - blackduck-logs:/var/log/blackduck
+
+volumes:
+  blackduck-data:
+  blackduck-logs:
