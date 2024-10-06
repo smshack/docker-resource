@@ -1,9 +1,0 @@
-version: "3"
-services:
-  wetty:
-    image: wettyoss/wetty
-    container_name: wetty
-    ports:
-      - "3002:3000" # 웹 인터페이스 접근 포트
-    environment:
-      - SSH_USER=root # SSH 접속할 사용자
