@@ -7,5 +7,3 @@ services:
       - "3002:3000" # 웹 인터페이스 접근 포트
     environment:
       - SSH_USER=root # SSH 접속할 사용자
-    volumes:
-      - /path/to/ssh/key:/root/.ssh # SSH 키를 호스트에서 컨테이너로 마운트
