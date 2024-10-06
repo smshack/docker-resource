@@ -4,7 +4,7 @@ services:
     image: jc21/nginx-proxy-manager:latest
     restart: unless-stopped
     ports:
-      - "80:80"
+      # - "80:80"
       - "81:81" # Nginx Proxy Manager 웹 UI 포트
       - "443:443"
     volumes:
