@@ -12,3 +12,9 @@ services:
       - ./letsencrypt:/etc/letsencrypt
     environment:
       DB_SQLITE_FILE: "/data/database.sqlite" # SQLite 데이터베이스 사용
+
+# Nginx Proxy Manager 웹 UI에 접속하려면 다음 URL을 사용하십시오.
+# http://localhost:81
+# 초기 관리자 계정 정보:
+# 이메일: admin@example.com
+# 비밀번호: changeme
