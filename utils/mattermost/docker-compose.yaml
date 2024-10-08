@@ -1,25 +1,36 @@
-version: "3.7"
+version: "2.4"
 
 services:
-  app:
-    image: mmattermost/platform:latest
-    restart: unless-stopped
-    ports:
-      - "8065:8065"
-    environment:
-      - MM_CONFIG=/mattermost/config/config.json
-      - MM_USERNAME=admin
-      - MM_PASSWORD=adminpassword
-      - MM_DB_HOST=172.17.0.1 # PostgreSQL이 실행 중인 외부 IP
-      - MM_DB_PORT=5432
-      - MM_DB_USER=user # 기존 PostgreSQL 사용자
-      - MM_DB_PASSWORD=password # 기존 PostgreSQL 비밀번호
-      - MM_DB_NAME=testdb # 기존 PostgreSQL 데이터베이스 이름
+  mattermost:
+    image: mattermost/mattermost-enterprise-edition:9.11.2
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 200
+    read_only: false
+    tmpfs:
+      - /tmp
     volumes:
-      - ./volumes/app/mattermost:/mattermost/data
-    networks:
-      - services
+      - ./mattermost/config:/mattermost/config:rw
+      - ./mattermost/data:/mattermost/data:rw
+      - ./mattermost/logs:/mattermost/logs:rw
+      - ./mattermost/plugins:/mattermost/plugins:rw
+      - ./mattermost/client/plugins:/mattermost/client/plugins:rw
+      - ./mattermost/bleve-indexes:/mattermost/bleve-indexes:rw
+    environment:
+      # timezone inside container
+      - TZ
+
+      # necessary Mattermost options/variables (see env.example)
+      - MM_SQLSETTINGS_DRIVERNAME
+      - MM_SQLSETTINGS_DATASOURCE=postgres://user:password@172.17.0.1:5432/testdb?sslmode=disable&connect_timeout=10
+
+      # necessary for bleve
+      - MM_BLEVESETTINGS_INDEXDIR
+
+      # additional settings
+      - MM_SERVICESETTINGS_SITEURL
 
 networks:
   services:
-    external: true
+    driver: bridge
