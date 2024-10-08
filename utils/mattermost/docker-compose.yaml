@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  app:
+    image: mattermost/mattermost-team-edition:latest
+    restart: unless-stopped
+    ports:
+      - "8065:8065"
+    environment:
+      - MM_CONFIG=/mattermost/config/config.json
+      - MM_USERNAME=admin
+      - MM_PASSWORD=adminpassword
+      - MM_DB_HOST=172.17.0.1 # PostgreSQL이 실행 중인 외부 IP
+      - MM_DB_PORT=5432
+      - MM_DB_USER=user # 기존 PostgreSQL 사용자
+      - MM_DB_PASSWORD=password # 기존 PostgreSQL 비밀번호
+      - MM_DB_NAME=testdb # 기존 PostgreSQL 데이터베이스 이름
+    volumes:
+      - ./volumes/app/mattermost:/mattermost/data
+    networks:
+      - services
+
+networks:
+  services:
+    external: true
