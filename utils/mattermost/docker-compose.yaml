@@ -1,6 +1,18 @@
 version: "3.7"
 
 services:
+  db:
+    image: postgres:13
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mmuser
+      POSTGRES_PASSWORD: mmuser_password
+      POSTGRES_DB: mattermost
+    volumes:
+      - ./volumes/db:/var/lib/postgresql/data
+    networks:
+      - mattermost-network
+
   app:
     image: mattermost/mattermost-team-edition:latest
     restart: unless-stopped
@@ -10,16 +22,17 @@ services:
       - MM_CONFIG=/mattermost/config/config.json
       - MM_USERNAME=admin
       - MM_PASSWORD=adminpassword
-      - MM_DB_HOST=172.17.0.1 # PostgreSQL이 실행 중인 외부 IP
+      - MM_DB_HOST=db
       - MM_DB_PORT=5432
-      - MM_DB_USER=user # 기존 PostgreSQL 사용자
-      - MM_DB_PASSWORD=password # 기존 PostgreSQL 비밀번호
-      - MM_DB_NAME=testdb # 기존 PostgreSQL 데이터베이스 이름
+      - MM_DB_USER=mmuser
+      - MM_DB_PASSWORD=mmuser_password
+      - MM_DB_NAME=mattermost
     volumes:
       - ./volumes/app/mattermost:/mattermost/data
+    depends_on:
+      - db
     networks:
-      - services
+      - mattermost-network
 
 networks:
-  services:
-    external: true
+  mattermost-network:
