@@ -12,13 +12,14 @@ services:
       - DB_PASSWORD=password
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=adminpassword
-      - KC_HOSTNAME=keycloak.smartseo.kr
+      - KC_HOSTNAME=https://keycloak.smartseo.kr # HTTPS로 설정
+      - KC_PROXY=edge # 리버스 프록시가 있는 경우 HTTPS를 강제하도록 설정
     ports:
       - "8084:8080"
     command:
       - start-dev
     volumes:
-      - keycloak-data:/opt/keycloak/data
+      - ./keycloak-data:/opt/keycloak/data
 
   # postgres:
   #   image: postgres:14
