@@ -14,7 +14,7 @@ services:
       - KEYCLOAK_PASSWORD=adminpassword
       - KC_HOSTNAME=keycloak.smartseo.kr
     ports:
-      - "8080:8080"
+      - "8083:8080"
     command:
       - start-dev
     volumes:
