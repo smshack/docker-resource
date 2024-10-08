@@ -34,7 +34,3 @@ services:
 
       # additional settings
       - MM_SERVICESETTINGS_SITEURL
-
-networks:
-  services:
-    driver: bridge
