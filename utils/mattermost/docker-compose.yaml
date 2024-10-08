@@ -10,6 +10,10 @@ services:
     read_only: false
     tmpfs:
       - /tmp
+    ports:
+      - 8065:8065
+      - 16001:16001/udp
+      - 16001:16002/tcp
     volumes:
       - ./mattermost/config:/mattermost/config:rw
       - ./mattermost/data:/mattermost/data:rw
