@@ -14,6 +14,7 @@ services:
       - KC_BOOTSTRAP_ADMIN_PASSWORD=adminpassword
       - KC_HOSTNAME=https://keycloak.smartseo.kr # HTTPS로 설정
       - KC_HOSTNAME_STRICT=true # 리버스 프록시가 있는 경우 HTTPS를 강제하도록 설정
+      - DB_CONNECTION_CHECK=true
     ports:
       - "8084:8080"
     command:
