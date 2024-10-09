@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  coturn:
+    image: instrumentisto/coturn
+    container_name: coturn
+    restart: unless-stopped
+    ports:
+      - "3478:3478" # TURN UDP/TCP 기본 포트
+      - "3478:3478/udp"
+      - "5349:5349" # TLS를 사용하는 경우
+      - "5349:5349/tcp"
+    volumes:
+      - ./turnserver.conf:/etc/turnserver.conf
+      - ./ssl:/etc/coturn/ssl
+    environment:
+      - TURN_PORT=3478
+      - TURNS_PORT=5349
+    networks:
+      - coturn-network
+
+networks:
+  coturn-network:
+    driver: bridge
