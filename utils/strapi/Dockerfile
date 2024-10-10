@@ -5,11 +5,8 @@ FROM node:18
 WORKDIR /usr/src/app
 
 # 앱 의존성 복사 및 설치
-COPY package*.json ./
-RUN yarn install
-
-# 앱 소스 코드 복사
 COPY . .
+RUN yarn install
 
 # 사용할 포트 노출
 EXPOSE 1337
