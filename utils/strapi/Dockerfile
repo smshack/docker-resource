@@ -6,16 +6,16 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package*.json ./
-RUN npm install
+RUN yarn install
 
 # Copy app source code
 COPY . .
 
 # Build the app
-RUN npm run develop
+RUN yarn develop
 
 # Expose the port the app runs on
 EXPOSE 1337
 
 # # Command to run the app
-# CMD ["npm", "start"]
+# CMD ["yarn", "start"]
