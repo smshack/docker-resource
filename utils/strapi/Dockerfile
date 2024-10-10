@@ -12,10 +12,10 @@ RUN yarn install
 COPY . .
 
 # Build the app
-RUN yarn develop
+# RUN yarn develop
 
 # Expose the port the app runs on
 EXPOSE 1337
 
 # # Command to run the app
-# CMD ["yarn", "start"]
+CMD ["yarn", "develop"]
