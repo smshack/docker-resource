@@ -1,5 +1,5 @@
 # Node.js LTS 버전 이미지 사용
-FROM node:18
+FROM node:18.19.0
 
 # 작업 디렉토리 생성
 WORKDIR /usr/src/app
