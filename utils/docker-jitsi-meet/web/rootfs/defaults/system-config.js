@@ -13,7 +13,18 @@
 {{ $JVB_PREFER_SCTP := .Env.JVB_PREFER_SCTP | default "1" | toBool -}}
 
 // Jitsi Meet configuration.
-var config = {};
+var config = {
+    p2p: {
+        enabled: true,
+        turnServers: [
+            {
+                urls: 'turn:your.turnserver.com:3478',
+                username: 'your-username',
+                credential: 'your-credential'
+            }
+        ]
+    },
+};
 
 config.hosts = {};
 config.hosts.domain = '{{ $XMPP_DOMAIN }}';

@@ -15,18 +15,18 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - services
-
-  # mysql_exporter:
-  #   image: bitnami/mysqld-exporter:latest
-  #   container_name: mysql-exporter
-  #   environment:
-  #     DATA_SOURCE_NAME: user:password@(mysql:3306)/
-  #   ports:
-  #     - "9104:9104"
-  #   depends_on:
-  #     - mysql
-  #   networks:
-  #     - services
+# ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
+# mysql_exporter:
+#   image: bitnami/mysqld-exporter:latest
+#   container_name: mysql-exporter
+#   environment:
+#     DATA_SOURCE_NAME: user:password@(mysql:3306)/
+#   ports:
+#     - "9104:9104"
+#   depends_on:
+#     - mysql
+#   networks:
+#     - services
 
 volumes:
   mysql_data:
