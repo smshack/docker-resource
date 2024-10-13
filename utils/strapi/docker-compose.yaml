@@ -21,7 +21,7 @@ services:
       [
         "/bin/sh",
         "-c",
-        "mkdir -p /opt/app/.strapi && chown -R 0:0 /opt/app/.strapi && yarn develop",
+        "mkdir -p /opt/app/.strapi && chown -R 0:0 /opt/app/ && yarn develop",
       ]
 
     # 재시작 정책
