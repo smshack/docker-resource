@@ -6,9 +6,6 @@ services:
     container_name: strapi
     ports:
       - "1337:1337"
-    volumes:
-      - ./public:/opt/app/public
-      - ./config:/opt/app/config
     environment:
       - NODE_ENV=development
     command: yarn develop
