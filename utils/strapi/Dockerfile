@@ -1,22 +1,19 @@
-# Node.js LTS 버전 사용
-FROM node:18.18-alpine3.17
+FROM node:18-alpine3.18
+# Installing libvips-dev for sharp Compatibility
+RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev git
+# ARG NODE_ENV=development
+# ENV NODE_ENV=${NODE_ENV}
 
-# 작업 디렉토리 생성
-WORKDIR /usr/src/app
+WORKDIR /opt/
+COPY package.json yarn.lock ./
+RUN yarn global add node-gyp
+RUN yarn config set network-timeout 600000 -g && yarn install
+ENV PATH=/opt/node_modules/.bin:$PATH
 
-RUN npm install -g node-gyp
-# 필요한 파일 복사
-COPY package.json ./
-
-# 의존성 설치
-RUN yarn install
-
-
-# Strapi 프로젝트의 나머지 소스 복사
+WORKDIR /opt/app
 COPY . .
-
-# Strapi 실행 명령어 (node_modules의 Strapi CLI 실행)
-CMD ["yarn", "develop"]
-
-# 포트 노출
+RUN chown -R node:node /opt/app
+USER node
+RUN ["yarn", "build"]
 EXPOSE 1337
+CMD ["yarn", "develop"]
