@@ -4,6 +4,7 @@ FROM node:18
 # 작업 디렉토리 생성
 WORKDIR /usr/src/app
 
+RUN npm install -g node-gyp
 # 필요한 파일 복사
 COPY package.json ./
 
