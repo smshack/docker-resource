@@ -1,0 +1,100 @@
+version: "3.8"
+
+services:
+  log:
+    image: goharbor/harbor-log:v2.8.0
+    container_name: harbor-log
+    restart: always
+    volumes:
+      - /data/harbor/log:/var/log/docker
+    networks:
+      - harbor
+
+  registry:
+    image: goharbor/registry-photon:v2.8.0
+    container_name: registry
+    restart: always
+    volumes:
+      - /data/harbor/registry:/storage
+      - ./common/config/registry/:/etc/registry/
+    networks:
+      - harbor
+    depends_on:
+      - log
+
+  core:
+    image: goharbor/harbor-core:v2.8.0
+    container_name: harbor-core
+    restart: always
+    volumes:
+      - /data/harbor/registry:/storage
+      - /data/harbor/secretkey:/etc/core/secret
+    environment:
+      - CORE_SECRET=/etc/core/secret
+    networks:
+      - harbor
+    depends_on:
+      - registry
+      - log
+
+  portal:
+    image: goharbor/harbor-portal:v2.8.0
+    container_name: harbor-portal
+    restart: always
+    networks:
+      - harbor
+
+  db:
+    image: goharbor/harbor-db:v2.8.0
+    container_name: harbor-db
+    restart: always
+    volumes:
+      - /data/harbor/database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=yourpassword
+    networks:
+      - harbor
+    depends_on:
+      - log
+
+  redis:
+    image: goharbor/redis-photon:v2.8.0
+    container_name: harbor-redis
+    restart: always
+    volumes:
+      - /data/harbor/redis:/data
+    networks:
+      - harbor
+    depends_on:
+      - log
+
+  jobservice:
+    image: goharbor/harbor-jobservice:v2.8.0
+    container_name: harbor-jobservice
+    restart: always
+    volumes:
+      - /data/harbor/job_logs:/var/log/jobs
+    networks:
+      - harbor
+    depends_on:
+      - redis
+      - core
+
+  nginx:
+    image: goharbor/nginx-photon:v2.8.0
+    container_name: harbor-nginx
+    restart: always
+    ports:
+      # - "80:8080"
+      - "8445:8443"
+    volumes:
+      - ./common/config/nginx:/etc/nginx
+    networks:
+      - harbor
+    depends_on:
+      - core
+      - portal
+
+networks:
+  harbor:
+    external: false

@@ -14,10 +14,3 @@ services:
 
     # 재시작 정책 설정 (필요에 따라 추가)
     restart: always
-
-    # healthcheck를 설정하여 Strapi 상태 확인 (선택 사항)
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:1337 || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
