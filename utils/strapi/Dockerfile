@@ -10,11 +10,16 @@ COPY package.json yarn.lock ./
 # 의존성 설치
 RUN yarn install
 
+
 # Strapi 프로젝트의 나머지 소스 복사
 COPY . .
 
-# 포트 노출
-EXPOSE 1337
+RUN yarn build
+
+
 
 # Strapi 실행 명령어 (node_modules의 Strapi CLI 실행)
 CMD ["yarn", "run", "strapi", "develop"]
+
+# 포트 노출
+EXPOSE 1337
