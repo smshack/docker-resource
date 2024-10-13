@@ -16,7 +16,7 @@ COPY . .
 
 RUN yarn build
 
-RUN yarn global add @strapi/strapi@$4.25.11
+RUN yarn global add @strapi/strapi@4.25.11
 
 # Strapi 실행 명령어 (node_modules의 Strapi CLI 실행)
 CMD ["yarn", "develop"]
