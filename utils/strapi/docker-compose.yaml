@@ -9,8 +9,6 @@ services:
     volumes:
       - ./public:/opt/app/public
       - ./config:/opt/app/config
-      - ./extensions:/opt/app/extensions
-      - ./src:/opt/app/src
     environment:
       - NODE_ENV=development
     command: yarn develop
