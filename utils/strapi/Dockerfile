@@ -1,5 +1,5 @@
 # Node.js LTS 버전 사용
-FROM node:18.19-alpine
+FROM node:18.18-alpine3.17
 
 # 작업 디렉토리 생성
 WORKDIR /usr/src/app
