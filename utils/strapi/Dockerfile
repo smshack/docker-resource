@@ -16,8 +16,5 @@ COPY . .
 # Strapi가 사용할 포트 설정
 EXPOSE 1337
 
-# 환경 변수 (필요한 경우 .env 파일을 Docker로 전달하거나 아래처럼 정의)
-# ENV NODE_ENV=production
-
-# Strapi 개발 서버 실행
-CMD ["yarn", "develop"]
+# 개발 서버 실행 명령어 (node_modules 내에서 실행되도록 설정)
+CMD ["yarn", "strapi", "develop"]
