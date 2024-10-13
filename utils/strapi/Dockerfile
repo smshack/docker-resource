@@ -1,20 +1,20 @@
-# Node.js LTS 버전 사용 (최소 v18 이상 권장)
+# Node.js LTS 버전 사용
 FROM node:18
 
-# 작업 디렉토리 설정
+# 작업 디렉토리 생성
 WORKDIR /usr/src/app
 
-# 필요한 파일 복사 (package.json과 yarn.lock 또는 package-lock.json)
-COPY package*.json ./
+# 필요한 파일 복사
+COPY package.json yarn.lock ./
 
 # 의존성 설치
 RUN yarn install
 
-# 나머지 소스 코드 복사
+# Strapi 프로젝트의 나머지 소스 복사
 COPY . .
 
-# Strapi가 사용할 포트 설정
+# 포트 노출
 EXPOSE 1337
 
-# 개발 서버 실행 명령어 (node_modules 내에서 실행되도록 설정)
-CMD ["yarn", "strapi", "develop"]
+# Strapi 실행 명령어 (node_modules의 Strapi CLI 실행)
+CMD ["yarn", "run", "strapi", "develop"]
