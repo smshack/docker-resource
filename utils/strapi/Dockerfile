@@ -13,6 +13,7 @@ ENV PATH=/opt/node_modules/.bin:$PATH
 WORKDIR /opt/app
 COPY . .
 RUN chown -R root:root /opt/app
+RUN chmod -R 0:0 /opt/app
 USER node
 RUN ["yarn", "build"]
 EXPOSE 1337
