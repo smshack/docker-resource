@@ -1,31 +1,27 @@
-version: "3.8"
-
+version: "3"
 services:
   redmine:
-    image: redmine:latest
     container_name: redmine
+    image: redmine
     restart: always
     ports:
-      - "3001:3000"
+      - "3080:3000"
     environment:
-      REDMINE_DB_MYSQL: redmine_db
-      REDMINE_DB_PASSWORD: example_password
-    depends_on:
-      - redmine_db
-
-  redmine_db:
-    image: mysql:5.7
-    container_name: redmine_db
+      REDMINE_DB_MYSQL: redmineDB
+      REDMINE_DB_PASSWORD: "redmine"
+      REDMINE_DATABASE: redmine
+      REDMINE_DB_ENCODING: utf8
+    volumes:
+      - ./files:/usr/src/redmine/files
+      - ./plugins:/usr/src/redmine/plugins
+      - ./themes:/usr/src/redmine/public/themes
+  redmineDB:
+    container_name: mysqlDC
+    image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example_password
+      MYSQL_ROOT_PASSWORD: "redmine"
       MYSQL_DATABASE: redmine
-      MYSQL_USER: redmine
-      MYSQL_PASSWORD: example_password
-      MYSQL_CHARSET: utf8mb4
-      MYSQL_COLLATION: utf8mb4_unicode_ci
     volumes:
-      - ./redmine_db_data:/var/lib/mysql
-
-volumes:
-  redmine_db_data:
+      - ./mysql:/var/lib/mysql
+    command: --character-set-server=utf8 --collation-server=utf8_general_ci
