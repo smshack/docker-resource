@@ -22,6 +22,8 @@ services:
       MYSQL_DATABASE: redmine
       MYSQL_USER: redmine
       MYSQL_PASSWORD: example_password
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
     volumes:
       - ./redmine_db_data:/var/lib/mysql
 
